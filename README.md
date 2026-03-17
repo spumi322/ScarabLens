@@ -4,6 +4,8 @@ Transparent desktop overlay for Path of Exile that shows scarab prices from poe.
 
 > **This build is for 1080p windowed fullscreen.**
 
+![ScarabLens overlay](Assets/scarabtabpreview.png)
+
 ## Requirements
 
 - Windows 10/11
