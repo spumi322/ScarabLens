@@ -1,5 +1,7 @@
 # ScarabLens
 
+# [Download latest release](https://github.com/spumi322/ScarabLens/releases/latest/download/ScarabLens-v1.0.0.zip)
+
 Transparent desktop overlay for Path of Exile that shows scarab prices from poe.ninja directly over your stash tab.
 
 > **This build is for 1080p windowed fullscreen.**
