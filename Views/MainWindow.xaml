@@ -1,0 +1,53 @@
+<Window x:Class="ScarabLens.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        Width="1920" Height="1080"
+        Left="0" Top="0"
+        SourceInitialized="Window_SourceInitialized"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing">
+
+    <!--
+        Canvas is the natural layout root for an overlay: children are positioned
+        absolutely so they sit exactly where needed on screen, independent of each
+        other and without any background fill of their own.
+    -->
+    <Canvas x:Name="OverlayCanvas">
+
+        <!-- Coordinate helper label — visible only in coord mode -->
+        <TextBlock x:Name="CoordLabel"
+                   Canvas.Left="20" Canvas.Top="100"
+                   Foreground="White"
+                   FontSize="13" FontFamily="Consolas"
+                   Background="#AA000000" Padding="6,3"
+                   Visibility="Collapsed" />
+
+        <!-- Status badge — top-left -->
+        <TextBlock Canvas.Left="20" Canvas.Top="5"
+                   Text="{Binding StatusText}"
+                   Foreground="Yellow"
+                   FontSize="14" FontWeight="Bold" FontFamily="Consolas" />
+
+        <!-- Hotkey subtitle under status badge -->
+        <TextBlock Canvas.Left="20" Canvas.Top="24"
+                   Text="ctrl + alt + s"
+                   Foreground="#99FFFFFF"
+                   FontSize="10" FontFamily="Consolas" />
+
+        <!-- Full-screen hit surface — last child so it sits on top of all overlay elements.
+             Fill="#01000000" (alpha=1) is required: WS_EX_LAYERED windows route alpha=0
+             pixels to the window below regardless of WS_EX_TRANSPARENT, so Transparent
+             would never receive mouse events. Alpha=1 is invisible but hit-testable. -->
+        <Rectangle x:Name="HitSurface"
+                   Canvas.Left="0" Canvas.Top="0"
+                   Fill="#01000000"
+                   MouseMove="HitSurface_MouseMove"
+                   Visibility="Collapsed" />
+
+    </Canvas>
+</Window>
