@@ -2,6 +2,15 @@ using System.Runtime.InteropServices;
 
 namespace ScarabLens;
 
+[StructLayout(LayoutKind.Sequential)]
+internal struct RECT
+{
+    internal int Left;
+    internal int Top;
+    internal int Right;
+    internal int Bottom;
+}
+
 internal static class NativeMethods
 {
     // SetWindowLong index for extended style
@@ -36,4 +45,14 @@ internal static class NativeMethods
     [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+    internal static extern IntPtr FindWindow(string? lpClassName, string lpWindowName);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    internal static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+    [DllImport("user32.dll")]
+    internal static extern uint GetDpiForWindow(IntPtr hWnd);
 }

@@ -19,6 +19,8 @@
 
     <!-- Strip debug symbols from release builds -->
     <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
