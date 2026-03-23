@@ -34,19 +34,19 @@ public static class SlotPositions
 
         // Right group
         ("Scarab of Monstrous Lineage", 565, 325),
-        ("Horned Scarab of Bloodlines", 605, 345),
+        ("Horned Scarab of Bloodlines", 610, 345),
         ("Scarab of Adversaries", 565, 365),
-        ("Horned Scarab of Nemeses", 605, 385),
+        ("Horned Scarab of Nemeses", 610, 385),
         ("Scarab of Divinity", 565, 405),
-        ("Horned Scarab of Preservation", 605, 425),
+        ("Horned Scarab of Preservation", 610, 425),
         ("Scarab of the Dextral", 565, 445),
-        ("Horned Scarab of Awakening", 605, 465),
+        ("Horned Scarab of Awakening", 610, 465),
         ("Scarab of the Sinistral", 565, 485),
-        ("Horned Scarab of Tradition", 605, 505),
+        ("Horned Scarab of Tradition", 610, 505),
         ("Scarab of Wisps", 565, 525),
-        ("Horned Scarab of Glittering", 605, 545),
+        ("Horned Scarab of Glittering", 610, 545),
         ("Scarab of Radiant Storms", 565, 565),
-        ("Horned Scarab of Pandemonium", 605, 585),
+        ("Horned Scarab of Pandemonium", 610, 585),
         ("Scarab of Stability", 565, 605),
     };
 }
