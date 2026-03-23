@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Brushes        = System.Windows.Media.Brushes;
+using MediaColor     = System.Windows.Media.Color;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -32,9 +33,9 @@ public partial class MainWindow : Window
             var tb = new TextBlock
             {
                 Text       = "?",
-                Foreground = Brushes.Yellow,
-                FontSize   = 11,
-                FontWeight = FontWeights.Bold,
+                Foreground = new SolidColorBrush(MediaColor.FromRgb(0x88, 0x88, 0x88)),
+                FontSize   = 9,
+                FontWeight = FontWeights.Normal,
                 Effect     = new DropShadowEffect
                 {
                     Color       = Colors.Black,
@@ -57,8 +58,33 @@ public partial class MainWindow : Window
                 Dispatcher.Invoke(() =>
                 {
                     for (int i = 0; i < labels.Count && i < prices.Count; i++)
-                        labels[i].Text = prices[i];
+                    {
+                        labels[i].Text = prices[i].Text;
+                        ApplyTier(labels[i], prices[i].Price);
+                    }
                 });
+    }
+
+    private static void ApplyTier(TextBlock tb, decimal? price)
+    {
+        if (price < 10m)
+        {
+            tb.Foreground = new SolidColorBrush(MediaColor.FromRgb(0xFF, 0xD7, 0x00));
+            tb.FontSize   = 11;
+            tb.FontWeight = FontWeights.Bold;
+        }
+        else if (price < 50m)
+        {
+            tb.Foreground = new SolidColorBrush(MediaColor.FromRgb(0xFF, 0x8C, 0x00));
+            tb.FontSize   = 12;
+            tb.FontWeight = FontWeights.Bold;
+        }
+        else
+        {
+            tb.Foreground = new SolidColorBrush(MediaColor.FromRgb(0xFF, 0x44, 0x44));
+            tb.FontSize   = 13;
+            tb.FontWeight = FontWeights.Bold;
+        }
     }
 
     // SourceInitialized fires after the HWND exists but before the window is shown —

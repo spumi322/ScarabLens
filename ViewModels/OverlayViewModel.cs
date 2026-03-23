@@ -21,16 +21,21 @@ public sealed class OverlayViewModel : INotifyPropertyChanged
     }
 
     /// <summary>
-    /// Fired on the calling thread with a formatted price string per slot (index-matched to
-    /// <see cref="SlotPositions.All"/>). Subscriber is responsible for dispatching to the UI thread.
+    /// Fired on the calling thread with a (formatted text, raw price) pair per slot
+    /// (index-matched to <see cref="SlotPositions.All"/>). Price is null when not found.
+    /// Subscriber is responsible for dispatching to the UI thread.
     /// </summary>
-    public event Action<IReadOnlyList<string>>? PricesRefreshed;
+    public event Action<IReadOnlyList<(string Text, decimal? Price)>>? PricesRefreshed;
 
     /// <summary>Reads all slot prices from the cache and raises <see cref="PricesRefreshed"/>.</summary>
     public void RefreshDisplay()
     {
         var prices = SlotPositions.All
-            .Select(slot => _cache.GetPrice(slot.Name) is decimal p ? FormatPrice(p) : "?")
+            .Select(slot =>
+            {
+                var price = _cache.GetPrice(slot.Name);
+                return (Text: price is decimal p ? FormatPrice(p) : "?", Price: price);
+            })
             .ToList();
 
         PricesRefreshed?.Invoke(prices);
