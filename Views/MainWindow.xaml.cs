@@ -8,6 +8,7 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
+using ScarabLens.Services;
 
 namespace ScarabLens;
 

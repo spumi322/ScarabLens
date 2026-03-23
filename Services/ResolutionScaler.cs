@@ -1,4 +1,4 @@
-namespace ScarabLens;
+namespace ScarabLens.Services;
 
 internal sealed class ResolutionScaler
 {
