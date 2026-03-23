@@ -19,6 +19,9 @@ public partial class MainWindow : Window
     private HwndSource? _hwndSource;
     private bool _inCoordMode;
 
+    private List<TextBlock> _labels = new();
+    private readonly ResolutionScaler _scaler = new();
+
     public MainWindow()
     {
         InitializeComponent();
@@ -26,7 +29,25 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        var labels = new List<TextBlock>(SlotPositions.All.Count);
+        BuildLabels();
+
+        if (DataContext is OverlayViewModel vm)
+            vm.PricesRefreshed += prices =>
+                Dispatcher.Invoke(() =>
+                {
+                    for (int i = 0; i < _labels.Count && i < prices.Count; i++)
+                    {
+                        _labels[i].Text = prices[i].Text;
+                        ApplyTier(_labels[i], prices[i].Price);
+                    }
+                });
+    }
+
+    private void BuildLabels()
+    {
+        foreach (var tb in _labels)
+            OverlayCanvas.Children.Remove(tb);
+        _labels.Clear();
 
         foreach (var (_, x, y) in SlotPositions.All)
         {
@@ -34,7 +55,7 @@ public partial class MainWindow : Window
             {
                 Text       = "?",
                 Foreground = new SolidColorBrush(MediaColor.FromRgb(0x88, 0x88, 0x88)),
-                FontSize   = 9,
+                FontSize   = _scaler.Font(9),
                 FontWeight = FontWeights.Normal,
                 Effect     = new DropShadowEffect
                 {
@@ -44,45 +65,35 @@ public partial class MainWindow : Window
                     Opacity     = 1,
                 },
             };
+            TextOptions.SetTextFormattingMode(tb, TextFormattingMode.Display);
 
-            Canvas.SetLeft(tb, x + 5);
-            Canvas.SetTop(tb, y + 10);
+            Canvas.SetLeft(tb, _scaler.X(x + 5));
+            Canvas.SetTop(tb, _scaler.Y(y + 10));
 
             // Insert before HitSurface (last child) so it stays on top for coord mode
             OverlayCanvas.Children.Insert(OverlayCanvas.Children.Count - 1, tb);
-            labels.Add(tb);
+            _labels.Add(tb);
         }
-
-        if (DataContext is OverlayViewModel vm)
-            vm.PricesRefreshed += prices =>
-                Dispatcher.Invoke(() =>
-                {
-                    for (int i = 0; i < labels.Count && i < prices.Count; i++)
-                    {
-                        labels[i].Text = prices[i].Text;
-                        ApplyTier(labels[i], prices[i].Price);
-                    }
-                });
     }
 
-    private static void ApplyTier(TextBlock tb, decimal? price)
+    private void ApplyTier(TextBlock tb, decimal? price)
     {
         if (price < 10m)
         {
             tb.Foreground = new SolidColorBrush(MediaColor.FromRgb(0xFF, 0xD7, 0x00));
-            tb.FontSize   = 11;
+            tb.FontSize   = _scaler.Font(11);
             tb.FontWeight = FontWeights.Bold;
         }
         else if (price < 50m)
         {
             tb.Foreground = new SolidColorBrush(MediaColor.FromRgb(0xFF, 0x8C, 0x00));
-            tb.FontSize   = 12;
+            tb.FontSize   = _scaler.Font(12);
             tb.FontWeight = FontWeights.Bold;
         }
         else
         {
             tb.Foreground = new SolidColorBrush(MediaColor.FromRgb(0xFF, 0x44, 0x44));
-            tb.FontSize   = 13;
+            tb.FontSize   = _scaler.Font(13);
             tb.FontWeight = FontWeights.Bold;
         }
     }
@@ -136,7 +147,23 @@ public partial class MainWindow : Window
     }
 
     private void ToggleOverlay()
-        => Visibility = Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+    {
+        _scaler.Refresh();
+        if (!_scaler.Found)
+            return;
+
+        Left   = _scaler.Left;
+        Top    = _scaler.Top;
+        Width  = _scaler.Width;
+        Height = _scaler.Height;
+
+        BuildLabels();
+
+        if (DataContext is OverlayViewModel vm)
+            vm.RefreshDisplay();
+
+        Visibility = Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+    }
 
     private void ToggleCoordMode()
     {
