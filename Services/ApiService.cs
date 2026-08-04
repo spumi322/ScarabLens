@@ -12,7 +12,7 @@ public sealed class ApiService : IApiService
         new() { PropertyNameCaseInsensitive = true };
 
     private const string Url =
-        "https://poe.ninja/poe1/api/economy/exchange/current/overview?league=Mirage&type=Scarab&language=en";
+        "https://poe.ninja/poe1/api/economy/exchange/current/overview?league=Allflame&type=Scarab&language=en";
 
     private static HttpClient CreateHttpClient()
     {
