@@ -20,8 +20,8 @@ public static class SlotPositions
 
         // Middle group
         ("Influencing Scarab of the Shaper", 320, 205), ("Influencing Scarab of the Elder", 360, 205), ("Influencing Scarab of Hordes", 400, 205), ("Influencing Scarab of Interference", 440, 205),
-        ("Titanic Scarab", 320, 255), ("Titanic Scarab of Treasures", 360, 255), ("Titanic Scarab of Legend", 400, 255),
-        ("Abyss Scarab", 320, 300), ("Abyss Scarab of Multitudes", 360, 300), ("Abyss Scarab of Edifice", 400, 300), ("Abyss Scarab of Descending", 440, 300), ("Abyss Scarab of Profound Depth", 480, 300),
+        ("Trarthan Scarab", 320, 255), ("Trarthan Scarab of Infamy", 360, 255), ("Trarthan Scarab of Renown", 400, 255), ("Trarthan Scarab of Surprising Alliances", 440, 255),
+        ("Abyss Scarab", 320, 300), ("Abyss Scarab of Multitudes", 360, 300), ("Abyss Scarab of Crystals", 400, 300), ("Abyss Scarab of Descending", 440, 300), ("Abyss Scarab of The Consort", 480, 300),
         ("Blight Scarab", 320, 350), ("Blight Scarab of the Blightheart", 360, 350), ("Blight Scarab of Blooming", 400, 350), ("Blight Scarab of Invigoration", 440, 350),
         ("Breach Scarab of the Hive", 320, 395), ("Breach Scarab of Instability", 360, 395), ("Breach Scarab of the Marshal", 400, 395), ("Breach Scarab of the Incensed Swarm", 440, 395), ("Breach Scarab of Resonant Cascade", 480, 395),
         ("Delirium Scarab", 320, 445), ("Delirium Scarab of Mania", 360, 445), ("Delirium Scarab of Paranoia", 400, 445), ("Delirium Scarab of Neuroses", 440, 445), ("Delirium Scarab of Delusions", 480, 445),
@@ -33,6 +33,7 @@ public static class SlotPositions
         ("Ultimatum Scarab", 320, 725), ("Ultimatum Scarab of Bribing", 360, 725), ("Ultimatum Scarab of Dueling", 400, 725), ("Ultimatum Scarab of Catalysing", 440, 725), ("Ultimatum Scarab of Inscription", 480, 725),
 
         // Right group
+        ("Titanic Scarab", 525, 205), ("Titanic Scarab of Treasures", 565, 205), ("Titanic Scarab of Legend", 605, 205),
         ("Scarab of Monstrous Lineage", 565, 325),
         ("Horned Scarab of Bloodlines", 610, 345),
         ("Scarab of Adversaries", 565, 365),
